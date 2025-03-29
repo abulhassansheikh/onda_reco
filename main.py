@@ -61,7 +61,7 @@ surf_breaks = ['Steamer Lane 🌊', 'Pleasure Point 🏄‍♂️']
 selected_location = st.selectbox("Select a Surf Break:", surf_breaks)
 
 # ---- Feedback Section ----
-google_form_url = "https://www.getonda.ai"
+google_form_url = "https://getonda.ai/"
 st.markdown(f"""
     <div class='feedback-section'>
         <p>We'd love to hear your thoughts!</p>
