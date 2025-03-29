@@ -5,7 +5,7 @@ import pandas as pd
 reco = pd.read_csv('reco.csv')
 
 # ---- Page Config ----
-st.set_page_config(page_title="Surf Forecast", layout="centered")
+st.set_page_config(page_title="Surf Recommendations", layout="centered")
 
 # ---- Custom Styling ----
 st.markdown("""
@@ -49,8 +49,11 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ---- Logo and Title ----
-st.image("logo.png", width=250)
-st.markdown("<div class='title'>Surf Forecast</div>", unsafe_allow_html=True)
+col1, col2, col3 = st.columns([1, 2, 1])
+    
+with col2:
+    st.image("logo.png", width=250)
+st.markdown("<div class='title'>Surf Recommendations</div>", unsafe_allow_html=True)
 st.markdown("<div class='subtitle'>Choose your surf break and explore the wave details 🌊</div>", unsafe_allow_html=True)
 
 # ---- Surf Break Selection ----
