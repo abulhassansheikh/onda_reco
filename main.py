@@ -3,6 +3,7 @@ import pandas as pd
 
 # ---- Load Data ----
 reco = pd.read_csv('reco.csv')
+surf_breaks = list(reco['surf_break'].unique())
 
 # ---- Page Config ----
 st.set_page_config(page_title="Surf Recommendations", layout="centered")
@@ -57,7 +58,7 @@ st.markdown("<div class='title'>Surf Recommendations</div>", unsafe_allow_html=T
 st.markdown("<div class='subtitle'>Choose your surf break and explore the wave details 🌊</div>", unsafe_allow_html=True)
 
 # ---- Surf Break Selection ----
-surf_breaks = ['Steamer Lane 🌊', 'Pleasure Point 🏄‍♂️']
+#surf_breaks = ['Steamer Lane 🌊', 'Pleasure Point 🏄‍♂️']
 selected_location = st.selectbox("Select a Surf Break:", surf_breaks)
 
 # ---- Feedback Section ----
@@ -74,19 +75,19 @@ st.markdown("<br>", unsafe_allow_html=True)
 # ---- Forecast Data Display ----
 
 # Filter based on location
-if selected_location.startswith('Steamer Lane'):
-    data = reco[reco['location'] == 'A']
-else:
-    data = reco[reco['location'] == 'B']
+data = reco[reco['surf_break'] == selected_location]
+
 
 # Sort timestamps
-timestamp_list = sorted(data['timestamp'].unique())
+date_list = sorted(data['date'].unique())
 
-for d in timestamp_list:
+for d in date_list:
     st.subheader(f"📅 {d}")
-    reco_data = data[data['timestamp'] == d].reset_index(drop=True)
+    reco_data = data[data['date'] == d].reset_index(drop=True)
+    
+    time_list = list(reco_data['time'].unique())
 
-    for time in [0, 1800, 2000]:
+    for time in time_list:
         if reco_data.empty:
             continue
 
