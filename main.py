@@ -2,6 +2,9 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 
+st.cache_data.clear()
+st.cache_resource.clear()
+
 # ---- Load Data ----
 reco = pd.read_csv('reco.csv')
 surf_breaks = list(reco['surf_break'].unique())
