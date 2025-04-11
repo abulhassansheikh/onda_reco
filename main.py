@@ -12,48 +12,7 @@ surf_breaks = list(reco['surf_break'].unique())
 
 image1 = Image.open("images/steamerlane.jpg")
 image2 = Image.open("images/pleasurepoint.jpg")
-
-# Wind speed and direction
-reco['windy_speed'] = np.sqrt(reco['wind_u-surface']**2 + reco['wind_v-surface']**2) * 1.94384
-reco['windy_direction'] = (270 - np.degrees(np.arctan2(reco['wind_v-surface'], reco['wind_u-surface']))) % 360
-
-# Change swell height to feet
-reco['swell1_height-surface'] = reco['swell1_height-surface'] * 3.28084
-reco['swell2_height-surface'] = reco['swell2_height-surface'] * 3.28084
-
-# Tide height in feet
-reco['tide'] = reco['sg'] * 3.28084
-
-# Exclude recos during sun down
-reco = reco[(reco['time'] > '06:00:00') & (reco['time'] < '20:00:00')]
-
-st_df = reco[reco['surf_break'] == 'Steamer Lane']
-st_data = st_df['date'].unique()[1]
-st_time = st_df[st_df['date'] == st_data]['time'].unique()[0]
-st_record = st_df[(st_df['date'] == st_data) & (st_df['time'] == st_time)].reset_index(drop = True)
-st_record = st_record[['swell1_height-surface', 'swell1_direction-surface','swell1_period-surface', 
-                       'swell2_height-surface','swell2_direction-surface', 'swell2_period-surface', 
-                       'date', 'time', 'surf_break', 'windy_speed',
-                       'windy_direction', 'tide']]
-
-st_record = st_record.loc[0].to_dict()
-with open('images/steamerlane.txt', 'w') as f:
-    f.write(str(st_record))
     
-st_df = reco[reco['surf_break'] == 'Pleasure Point']
-st_data = st_df['date'].unique()[1]
-st_time = st_df[st_df['date'] == st_data]['time'].unique()[0]
-st_record = st_df[(st_df['date'] == st_data) & (st_df['time'] == st_time)].reset_index(drop = True)
-st_record = st_record[['swell1_height-surface', 'swell1_direction-surface','swell1_period-surface', 
-                       'swell2_height-surface','swell2_direction-surface', 'swell2_period-surface', 
-                       'date', 'time', 'surf_break', 'windy_speed',
-                       'windy_direction', 'tide']]
-
-st_record = st_record.loc[0].to_dict()
-with open('images/pleasurepoint.txt', 'w') as f:
-    f.write(str(st_record))
-    
-
 # ---- Page Config ----
 st.set_page_config(page_title="Surf Recommendations", layout="centered")
 
