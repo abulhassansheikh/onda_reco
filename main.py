@@ -93,10 +93,10 @@ col1, col2 = st.columns(2)
 
 # Display the images side by side
 with col1:
-    st.image(image1, use_column_width=True)
+    st.image(image1, use_container_width=True)
 
 with col2:
-    st.image(image2, use_column_width=True)
+    st.image(image2, use_container_width=True)
     
     
 # Filter based on location
